@@ -18,6 +18,20 @@ From the project directory run the image:
 docker run --name flatpak-packaging -v $PWD:/home/packager:rw -ti williamjmorenor/flatpak-builder
 ```
 
+The flakpat build is available:
+
+```bash
+
+packager@2d7de89d4b42:~$ flatpak --help
+Usage:
+  flatpak [OPTION?] COMMAND
+[...]
+packager@2d7de89d4b42:~$ whoami
+packager
+packager@2d7de89d4b42:~$ pwd
+/home/packager
+```
+
 To finish the sesion in the container just type:
 
 ```bash

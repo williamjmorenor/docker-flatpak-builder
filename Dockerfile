@@ -9,7 +9,6 @@ RUN flatpak install -y --noninteractive flathub \
     org.freedesktop.Platform.Locale//19.08 \
     org.freedesktop.Platform.ffmpeg-full//19.08 \
     org.freedesktop.Platform.GL.default//19.08 \
-    org.freedesktop.Platform.GL.mesa-aco//19.08 \
     org.freedesktop.Sdk//19.08 \
     org.freedesktop.Sdk.Locale//19.08 \
     org.freedesktop.Sdk.Extension.rust-stable//19.08 \
@@ -22,3 +21,16 @@ RUN flatpak install -y --noninteractive flathub \
     org.kde.Platform.Locale//5.14 \
     org.kde.Sdk//5.14 \
     org.kde.Sdk.Locale//5.14
+
+# Create a user to not run packaging tasks as root
+RUN useradd -ms /bin/bash packager
+# Let the packager user become root.
+RUN usermod -a -G wheel packager
+# Use sudo without password.
+RUN echo "packager ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+# Define user and home for packaging.
+USER packager
+WORKDIR /home/packager
+VOLUME /home/packager
+ENTRYPOINT [ "/usr/bin/bash" ]
+

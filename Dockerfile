@@ -1,7 +1,7 @@
   
 from fedora:rawhide
 
-RUN dnf install -y flatpak git bash && dnf clean all
+RUN dnf install -y flatpak git bash wget && dnf clean all
 RUN flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 RUN flatpak install -y --noninteractive flathub \
     org.flatpak.Builder \
